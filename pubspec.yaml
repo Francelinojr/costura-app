@@ -22,6 +22,7 @@ dependencies:
   timezone: any
   uuid: any
   google_fonts: any
+  flutter_slidable: any
 
 dev_dependencies:
   flutter_test:

@@ -41,7 +41,7 @@ class _PedidosScreenState extends State<PedidosScreen> {
                 const SizedBox(width: 8),
                 _buildFilterChip(StatusPedido.pronto, 'Pronto'),
                 const SizedBox(width: 8),
-                _buildFilterChip(StatusPedido.entregue, 'Entregue'),
+                _buildFilterChip(StatusPedido.concluido, 'Concluído'),
               ],
             ),
           ),

@@ -5,6 +5,7 @@ class AppConstants {
   static const List<String> tiposPeca = [
     'Blusa',
     'Calça',
+    'Conjunto',
     'Saia',
     'Vestido',
     'Jaqueta',
@@ -60,6 +61,8 @@ class AppConstants {
         return '👕';
       case 'calça':
         return '👖';
+      case 'conjunto':
+        return '👕👖';
       case 'saia':
         return '👗';
       case 'vestido':
@@ -86,7 +89,7 @@ class AppConstants {
         return '#FFD700';
       case 'Pronto':
         return '#90EE90';
-      case 'Entregue':
+      case 'Concluído':
         return '#228B22';
       case 'Cancelado':
         return '#FF6347';

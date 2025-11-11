@@ -9,6 +9,8 @@ import 'clientes_screen.dart';
 import 'pedidos_screen.dart';
 import 'orcamentos_screen.dart';
 import 'portfolio_screen.dart';
+import 'pedidos_pendentes_screen.dart';
+import 'dashboard_screen.dart';
 
 class WebHomeScreen extends StatefulWidget {
   const WebHomeScreen({super.key});
@@ -87,8 +89,8 @@ class _WebHomeScreenState extends State<WebHomeScreen> {
               type: BottomNavigationBarType.fixed,
               items: const [
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.home),
-                  label: 'Início',
+                  icon: Icon(Icons.list_alt),
+                  label: 'A Fazer',
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.people),
@@ -106,6 +108,10 @@ class _WebHomeScreenState extends State<WebHomeScreen> {
                   icon: Icon(Icons.image),
                   label: 'Portfólio',
                 ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.bar_chart),
+                  label: 'Relatório',
+                ),
               ],
             ),
     );
@@ -113,11 +119,12 @@ class _WebHomeScreenState extends State<WebHomeScreen> {
 
   List<Widget> _buildNavItems() {
     final items = [
-      ('Início', Icons.home, 0),
+      ('A Fazer', Icons.list_alt, 0),
       ('Clientes', Icons.people, 1),
       ('Pedidos', Icons.assignment, 2),
       ('Orçamentos', Icons.receipt, 3),
       ('Portfólio', Icons.image, 4),
+      ('Relatório', Icons.bar_chart, 5),
     ];
 
     return items.map((item) {
@@ -154,7 +161,7 @@ class _WebHomeScreenState extends State<WebHomeScreen> {
   Widget _buildContent() {
     switch (_selectedIndex) {
       case 0:
-        return _buildDashboard();
+        return const PedidosPendentesScreen();
       case 1:
         return const ClientesScreen();
       case 2:
@@ -163,8 +170,10 @@ class _WebHomeScreenState extends State<WebHomeScreen> {
         return const OrcamentosScreen();
       case 4:
         return const PortfolioScreen();
+      case 5:
+        return const DashboardScreen();
       default:
-        return _buildDashboard();
+        return const PedidosPendentesScreen();
     }
   }
 

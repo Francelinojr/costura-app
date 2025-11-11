@@ -3,8 +3,10 @@ enum StatusPedido {
   confirmado,
   emProgresso,
   pronto,
-  entregue,
+  concluido,
   cancelado,
+  // Mantido por compatibilidade; evitar usar em novos fluxos
+  entregue,
 }
 
 class Pedido {
@@ -78,8 +80,11 @@ class Pedido {
         return StatusPedido.emProgresso;
       case 'pronto':
         return StatusPedido.pronto;
+      case 'concluido':
+        return StatusPedido.concluido;
       case 'entregue':
-        return StatusPedido.entregue;
+        // Mapear registros antigos para o novo status explícito
+        return StatusPedido.concluido;
       case 'cancelado':
         return StatusPedido.cancelado;
       default:
@@ -127,8 +132,11 @@ class Pedido {
         return 'Em Progresso';
       case StatusPedido.pronto:
         return 'Pronto';
+      case StatusPedido.concluido:
+        return 'Concluído';
       case StatusPedido.entregue:
-        return 'Entregue';
+        // Uniformizar exibição
+        return 'Concluído';
       case StatusPedido.cancelado:
         return 'Cancelado';
     }
@@ -145,6 +153,8 @@ class Pedido {
         return '#FFD700'; // Amarelo
       case StatusPedido.pronto:
         return '#90EE90'; // Verde claro
+      case StatusPedido.concluido:
+        return '#228B22'; // Verde escuro
       case StatusPedido.entregue:
         return '#228B22'; // Verde escuro
       case StatusPedido.cancelado:

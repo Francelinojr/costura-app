@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'dart:io' show Platform;
+import 'package:flutter/foundation.dart';
 import 'services/cliente_provider.dart';
 import 'services/pedido_provider.dart';
 import 'services/orcamento_provider.dart';
@@ -36,18 +36,19 @@ class CosturaApp extends StatelessWidget {
   }
 
   Widget _getHomeScreen() {
-    // Detectar se é web
-    try {
-      // Se conseguir acessar Platform, é mobile/desktop
-      if (Platform.isAndroid || Platform.isIOS) {
-        return const HomeScreen();
-      }
-    } catch (e) {
-      // Se não conseguir acessar Platform, é web
+    // Detectar plataforma de forma segura
+    if (kIsWeb) {
       return const WebHomeScreen();
     }
-    
-    // Padrão para desktop/web
-    return const WebHomeScreen();
+
+    // Mobile (Android/iOS)
+    switch (defaultTargetPlatform) {
+      case TargetPlatform.android:
+      case TargetPlatform.iOS:
+        return const HomeScreen();
+      default:
+        // Para outras plataformas (desktop), usar WebHomeScreen por padrão
+        return const WebHomeScreen();
+    }
   }
 }

@@ -46,18 +46,17 @@
     }
   </style>
 
-  <script>
-    const serviceWorkerVersion = null;
-  </script>
+  <!-- Flutter web runtime loader: use template token for SW version and new API -->
   <script src="flutter.js" defer></script>
 </head>
 <body>
   <div id="app-container"></div>
   <script>
-    window.addEventListener('load', function(ev) {
+    window.addEventListener('load', function() {
+      // Fallback to deprecated API for current runtime; keep token for SW version
       _flutter.loader.loadEntrypoint({
         serviceWorker: {
-          serviceWorkerVersion: serviceWorkerVersion,
+          serviceWorkerVersion: {{flutter_service_worker_version}},
         },
         onEntrypointLoaded: function(engineInitializer) {
           engineInitializer.initializeEngine().then(function(appRunner) {

@@ -107,7 +107,7 @@ class _PedidoFormScreenState extends State<PedidoFormScreen> {
             TextField(
               controller: _descricaoController,
               decoration: const InputDecoration(
-                labelText: 'Descrição *',
+                labelText: 'Descrição',
                 hintText: 'Descreva o pedido',
               ),
             ),
@@ -227,10 +227,8 @@ class _PedidoFormScreenState extends State<PedidoFormScreen> {
     }
 
     if (_descricaoController.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Por favor, preencha a descrição')),
-      );
-      return;
+      // Descrição agora é opcional; não bloquear salvamento
+      // Mantemos apenas validações essenciais (cliente e data prazo)
     }
 
     if (_dataPrazo == null) {
@@ -280,8 +278,10 @@ class _PedidoFormScreenState extends State<PedidoFormScreen> {
         return 'Em Progresso';
       case StatusPedido.pronto:
         return 'Pronto';
+      case StatusPedido.concluido:
+        return 'Concluído';
       case StatusPedido.entregue:
-        return 'Entregue';
+        return 'Concluído';
       case StatusPedido.cancelado:
         return 'Cancelado';
     }

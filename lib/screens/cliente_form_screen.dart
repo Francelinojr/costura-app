@@ -129,7 +129,7 @@ class _ClienteFormScreenState extends State<ClienteFormScreen> {
                 labelText: 'Tamanho da Roupa',
                 border: OutlineInputBorder(),
               ),
-              value: _tamanhoSelecionado,
+              initialValue: _tamanhoSelecionado,
               hint: const Text('Selecione o Tamanho'),
               items: _tamanhos.map((String tamanho) {
                 return DropdownMenuItem<String>(

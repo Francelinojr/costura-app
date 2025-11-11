@@ -19,7 +19,7 @@ class PedidoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final diasRestantes = pedido.dataPrazo.difference(DateTime.now()).inDays;
-    final isAtrasado = diasRestantes < 0 && pedido.status != StatusPedido.entregue;
+    final isAtrasado = diasRestantes < 0 && pedido.status != StatusPedido.concluido && pedido.status != StatusPedido.cancelado;
 
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -135,6 +135,8 @@ class PedidoCard extends StatelessWidget {
         return Colors.amber;
       case StatusPedido.pronto:
         return Colors.lightGreen;
+      case StatusPedido.concluido:
+        return Colors.green;
       case StatusPedido.entregue:
         return Colors.green;
       case StatusPedido.cancelado:

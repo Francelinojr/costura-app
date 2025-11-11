@@ -86,7 +86,7 @@ class PedidoProvider extends ChangeNotifier {
   // Obter pedidos em atraso
   List<Pedido> obterPedidosEmAtraso() {
     final agora = DateTime.now();
-    return _pedidos.where((p) => p.dataPrazo.isBefore(agora) && p.status != StatusPedido.entregue && p.status != StatusPedido.cancelado).toList();
+    return _pedidos.where((p) => p.dataPrazo.isBefore(agora) && p.status != StatusPedido.concluido && p.status != StatusPedido.cancelado).toList();
   }
 
   // Obter próximos pedidos a entregar
@@ -97,7 +97,7 @@ class PedidoProvider extends ChangeNotifier {
         .where((p) =>
             p.dataPrazo.isAfter(agora) &&
             p.dataPrazo.isBefore(proximosDias) &&
-            p.status != StatusPedido.entregue &&
+            p.status != StatusPedido.concluido &&
             p.status != StatusPedido.cancelado)
         .toList();
   }
