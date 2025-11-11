@@ -50,13 +50,13 @@ class _PortfolioFormScreenState extends State<PortfolioFormScreen> {
         title: Text(widget.portfolio == null ? 'Novo Trabalho' : 'Editar Trabalho'),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Foto
             _buildSectionTitle('Foto do Trabalho'),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             Container(
               width: double.infinity,
               height: 200,
@@ -70,7 +70,7 @@ class _PortfolioFormScreenState extends State<PortfolioFormScreen> {
                       _caminhoFoto,
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) {
-                        return Center(
+                        return const Center(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -82,7 +82,7 @@ class _PortfolioFormScreenState extends State<PortfolioFormScreen> {
                         );
                       },
                     )
-                  : Center(
+                  : const Center(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -93,18 +93,18 @@ class _PortfolioFormScreenState extends State<PortfolioFormScreen> {
                       ),
                     ),
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             Row(
               children: [
                 Expanded(
                   child: ElevatedButton.icon(
                     onPressed: _selecionarFoto,
-                    icon: Icon(Icons.photo_camera),
-                    label: Text('Selecionar Foto'),
+                    icon: const Icon(Icons.photo_camera),
+                    label: const Text('Selecionar Foto'),
                   ),
                 ),
                 if (_caminhoFoto.isNotEmpty)
-                  SizedBox(width: 8),
+                  const SizedBox(width: 8),
                 if (_caminhoFoto.isNotEmpty)
                   ElevatedButton.icon(
                     onPressed: () {
@@ -112,29 +112,29 @@ class _PortfolioFormScreenState extends State<PortfolioFormScreen> {
                         _caminhoFoto = '';
                       });
                     },
-                    icon: Icon(Icons.delete),
-                    label: Text('Remover'),
+                    icon: const Icon(Icons.delete),
+                    label: const Text('Remover'),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.red,
                     ),
                   ),
               ],
             ),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
 
             // Detalhes
             _buildSectionTitle('Detalhes do Trabalho'),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             TextField(
               controller: _tituloController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Título *',
                 hintText: 'Nome do trabalho',
               ),
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             DropdownButtonFormField<String>(
-              value: _tipoPecaSelecionado,
+              initialValue: _tipoPecaSelecionado,
               items: AppConstants.tiposPeca.map((tipo) {
                 return DropdownMenuItem(
                   value: tipo,
@@ -146,30 +146,30 @@ class _PortfolioFormScreenState extends State<PortfolioFormScreen> {
                   _tipoPecaSelecionado = value ?? 'Blusa';
                 });
               },
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Tipo de Peça',
               ),
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             TextField(
               controller: _descricaoController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Descrição',
                 hintText: 'Descreva este trabalho',
                 border: OutlineInputBorder(),
               ),
               maxLines: 4,
             ),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
 
             // Cliente e Avaliação
             _buildSectionTitle('Cliente e Avaliação'),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             Consumer<ClienteProvider>(
               builder: (context, clienteProvider, _) {
                 return DropdownButtonFormField<String>(
-                  value: _clienteSelecionado,
-                  hint: Text('Selecione uma cliente (opcional)'),
+                  initialValue: _clienteSelecionado,
+                  hint: const Text('Selecione uma cliente (opcional)'),
                   items: clienteProvider.clientes.map((cliente) {
                     return DropdownMenuItem(
                       value: cliente.id,
@@ -181,22 +181,22 @@ class _PortfolioFormScreenState extends State<PortfolioFormScreen> {
                       _clienteSelecionado = value;
                     });
                   },
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Cliente',
                   ),
                 );
               },
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             TextField(
               controller: _avaliacaoController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Avaliação (0-5)',
                 hintText: '5',
               ),
               keyboardType: TextInputType.number,
             ),
-            SizedBox(height: 32),
+            const SizedBox(height: 32),
 
             // Botões
             Row(
@@ -204,14 +204,14 @@ class _PortfolioFormScreenState extends State<PortfolioFormScreen> {
                 Expanded(
                   child: OutlinedButton(
                     onPressed: () => Navigator.pop(context),
-                    child: Text('Cancelar'),
+                    child: const Text('Cancelar'),
                   ),
                 ),
-                SizedBox(width: 12),
+                const SizedBox(width: 12),
                 Expanded(
                   child: ElevatedButton(
                     onPressed: _salvarTrabalho,
-                    child: Text('Salvar'),
+                    child: const Text('Salvar'),
                   ),
                 ),
               ],
@@ -235,14 +235,14 @@ class _PortfolioFormScreenState extends State<PortfolioFormScreen> {
     // Simulação de seleção de foto
     // Em produção, usar image_picker
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Funcionalidade de câmera/galeria será implementada com image_picker')),
+      const SnackBar(content: Text('Funcionalidade de câmera/galeria será implementada com image_picker')),
     );
   }
 
   void _salvarTrabalho() {
     if (_tituloController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Por favor, preencha o título')),
+        const SnackBar(content: Text('Por favor, preencha o título')),
       );
       return;
     }
@@ -263,12 +263,12 @@ class _PortfolioFormScreenState extends State<PortfolioFormScreen> {
     if (widget.portfolio == null) {
       provider.adicionarTrabalho(trabalho);
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Trabalho adicionado com sucesso')),
+        const SnackBar(content: Text('Trabalho adicionado com sucesso')),
       );
     } else {
       provider.atualizarTrabalho(trabalho);
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Trabalho atualizado com sucesso')),
+        const SnackBar(content: Text('Trabalho atualizado com sucesso')),
       );
     }
 

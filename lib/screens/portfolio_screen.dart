@@ -6,6 +6,8 @@ import '../utils/constants.dart';
 import 'portfolio_form_screen.dart';
 
 class PortfolioScreen extends StatefulWidget {
+  const PortfolioScreen({super.key});
+
   @override
   State<PortfolioScreen> createState() => _PortfolioScreenState();
 }
@@ -17,7 +19,7 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Meu Portfólio'),
+        title: const Text('Meu Portfólio'),
         elevation: 0,
       ),
       body: Consumer<PortfolioProvider>(
@@ -29,7 +31,7 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
           }
 
           if (portfolioProvider.isLoading) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
 
           return Column(
@@ -38,13 +40,13 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
               if (portfolioProvider.portfolio.isNotEmpty)
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
-                  padding: EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(16),
                   child: Row(
                     children: [
                       _buildFilterChip('Todos', null),
                       ...AppConstants.tiposPeca.map((tipo) {
                         return Padding(
-                          padding: EdgeInsets.only(left: 8),
+                          padding: const EdgeInsets.only(left: 8),
                           child: _buildFilterChip(tipo, tipo),
                         );
                       }).toList(),
@@ -58,8 +60,8 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.image_not_supported_outlined, size: 64, color: Colors.grey),
-                            SizedBox(height: 16),
+                            const Icon(Icons.image_not_supported_outlined, size: 64, color: Colors.grey),
+                            const SizedBox(height: 16),
                             Text(
                               'Nenhum trabalho no portfólio',
                               style: Theme.of(context).textTheme.titleMedium,
@@ -68,8 +70,8 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
                         ),
                       )
                     : GridView.builder(
-                        padding: EdgeInsets.all(16),
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        padding: const EdgeInsets.all(16),
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           crossAxisSpacing: 12,
                           mainAxisSpacing: 12,
@@ -91,13 +93,13 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => PortfolioFormScreen(),
+              builder: (context) => const PortfolioFormScreen(),
             ),
           ).then((_) {
             context.read<PortfolioProvider>().carregarPortfolio();
           });
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
@@ -135,19 +137,19 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
                       trabalho.caminhoFoto,
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) {
-                        return Center(
+                        return const Center(
                           child: Icon(Icons.image_not_supported, color: Colors.grey),
                         );
                       },
                     )
-                  : Center(
+                  : const Center(
                       child: Icon(Icons.image_outlined, color: Colors.grey, size: 40),
                     ),
             ),
           ),
           // Informações
           Padding(
-            padding: EdgeInsets.all(12),
+            padding: const EdgeInsets.all(12),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -159,18 +161,18 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
-                SizedBox(height: 4),
+                const SizedBox(height: 4),
                 Row(
                   children: [
-                    Icon(Icons.star, size: 16, color: Colors.amber),
-                    SizedBox(width: 4),
+                    const Icon(Icons.star, size: 16, color: Colors.amber),
+                    const SizedBox(width: 4),
                     Text(
                       trabalho.avaliacao.toStringAsFixed(1),
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ],
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 Row(
                   children: [
                     Expanded(
@@ -185,8 +187,8 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
                             provider.carregarPortfolio();
                           });
                         },
-                        icon: Icon(Icons.edit, size: 16),
-                        label: Text('Editar', style: TextStyle(fontSize: 12)),
+                        icon: const Icon(Icons.edit, size: 16),
+                        label: const Text('Editar', style: TextStyle(fontSize: 12)),
                       ),
                     ),
                     Expanded(
@@ -194,8 +196,8 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
                         onPressed: () {
                           _mostrarDialogoConfirmacao(context, trabalho.id, provider);
                         },
-                        icon: Icon(Icons.delete, size: 16, color: Colors.red),
-                        label: Text('Deletar', style: TextStyle(fontSize: 12, color: Colors.red)),
+                        icon: const Icon(Icons.delete, size: 16, color: Colors.red),
+                        label: const Text('Deletar', style: TextStyle(fontSize: 12, color: Colors.red)),
                       ),
                     ),
                   ],
@@ -216,22 +218,22 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Deletar trabalho?'),
-        content: Text('Esta ação não pode ser desfeita.'),
+        title: const Text('Deletar trabalho?'),
+        content: const Text('Esta ação não pode ser desfeita.'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text('Cancelar'),
+            child: const Text('Cancelar'),
           ),
           TextButton(
             onPressed: () {
               provider.deletarTrabalho(trabalhoId);
               Navigator.pop(context);
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Trabalho deletado com sucesso')),
+                const SnackBar(content: Text('Trabalho deletado com sucesso')),
               );
             },
-            child: Text('Deletar', style: TextStyle(color: Colors.red)),
+            child: const Text('Deletar', style: TextStyle(color: Colors.red)),
           ),
         ],
       ),

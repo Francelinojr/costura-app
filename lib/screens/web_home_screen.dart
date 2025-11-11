@@ -11,6 +11,8 @@ import 'orcamentos_screen.dart';
 import 'portfolio_screen.dart';
 
 class WebHomeScreen extends StatefulWidget {
+  const WebHomeScreen({super.key});
+
   @override
   State<WebHomeScreen> createState() => _WebHomeScreenState();
 }
@@ -42,7 +44,7 @@ class _WebHomeScreenState extends State<WebHomeScreen> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: Row(
+        title: const Row(
           children: [
             Icon(Icons.cut, color: AppTheme.primaryColor),
             SizedBox(width: 12),
@@ -62,7 +64,7 @@ class _WebHomeScreenState extends State<WebHomeScreen> {
               color: AppTheme.surfaceColor,
               child: Column(
                 children: [
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   ..._buildNavItems(),
                 ],
               ),
@@ -83,7 +85,7 @@ class _WebHomeScreenState extends State<WebHomeScreen> {
                 });
               },
               type: BottomNavigationBarType.fixed,
-              items: [
+              items: const [
                 BottomNavigationBarItem(
                   icon: Icon(Icons.home),
                   label: 'Início',
@@ -121,7 +123,7 @@ class _WebHomeScreenState extends State<WebHomeScreen> {
     return items.map((item) {
       final isSelected = _selectedIndex == item.$3;
       return Padding(
-        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
         child: ListTile(
           leading: Icon(
             item.$2,
@@ -154,13 +156,13 @@ class _WebHomeScreenState extends State<WebHomeScreen> {
       case 0:
         return _buildDashboard();
       case 1:
-        return ClientesScreen();
+        return const ClientesScreen();
       case 2:
-        return PedidosScreen();
+        return const PedidosScreen();
       case 3:
-        return OrcamentosScreen();
+        return const OrcamentosScreen();
       case 4:
-        return PortfolioScreen();
+        return const PortfolioScreen();
       default:
         return _buildDashboard();
     }
@@ -169,7 +171,7 @@ class _WebHomeScreenState extends State<WebHomeScreen> {
   Widget _buildDashboard() {
     return SafeArea(
       child: SingleChildScrollView(
-        padding: EdgeInsets.all(24),
+        padding: const EdgeInsets.all(24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -181,24 +183,24 @@ class _WebHomeScreenState extends State<WebHomeScreen> {
                     fontWeight: FontWeight.bold,
                   ),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text(
               'Gerencie seu negócio de costura de forma simples e eficiente',
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     color: AppTheme.textSecondaryColor,
                   ),
             ),
-            SizedBox(height: 32),
+            const SizedBox(height: 32),
 
             // Cards de resumo
             _buildResumoCards(),
 
-            SizedBox(height: 32),
+            const SizedBox(height: 32),
 
             // Pedidos em atraso
             _buildPedidosEmAtraso(),
 
-            SizedBox(height: 32),
+            const SizedBox(height: 32),
 
             // Próximos pedidos
             _buildProximosPedidos(),
@@ -221,7 +223,7 @@ class _WebHomeScreenState extends State<WebHomeScreen> {
           crossAxisSpacing: 16,
           mainAxisSpacing: 16,
           shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           childAspectRatio: 1.2,
           children: [
             _buildResumoCard(
@@ -263,13 +265,13 @@ class _WebHomeScreenState extends State<WebHomeScreen> {
     return Card(
       elevation: 2,
       child: Padding(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
-              padding: EdgeInsets.all(12),
+              padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
                 color: cor.withOpacity(0.2),
                 borderRadius: BorderRadius.circular(8),
@@ -304,7 +306,7 @@ class _WebHomeScreenState extends State<WebHomeScreen> {
         final pedidosAtrasados = pedidoProvider.obterPedidosEmAtraso();
 
         if (pedidosAtrasados.isEmpty) {
-          return SizedBox.shrink();
+          return const SizedBox.shrink();
         }
 
         return Column(
@@ -317,9 +319,9 @@ class _WebHomeScreenState extends State<WebHomeScreen> {
                     fontWeight: FontWeight.bold,
                   ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
                 crossAxisSpacing: 16,
                 mainAxisSpacing: 16,
@@ -327,17 +329,17 @@ class _WebHomeScreenState extends State<WebHomeScreen> {
               ),
               itemCount: pedidosAtrasados.take(3).length,
               shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
                 final pedido = pedidosAtrasados[index];
                 return Card(
                   color: Colors.red.withOpacity(0.1),
                   child: Padding(
-                    padding: EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(16),
                     child: Row(
                       children: [
-                        Icon(Icons.warning, color: Colors.red),
-                        SizedBox(width: 12),
+                        const Icon(Icons.warning, color: Colors.red),
+                        const SizedBox(width: 12),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -374,7 +376,7 @@ class _WebHomeScreenState extends State<WebHomeScreen> {
         final proximosPedidos = pedidoProvider.obterProximosPedidos();
 
         if (proximosPedidos.isEmpty) {
-          return SizedBox.shrink();
+          return const SizedBox.shrink();
         }
 
         return Column(
@@ -386,9 +388,9 @@ class _WebHomeScreenState extends State<WebHomeScreen> {
                     fontWeight: FontWeight.bold,
                   ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
                 crossAxisSpacing: 16,
                 mainAxisSpacing: 16,
@@ -396,16 +398,16 @@ class _WebHomeScreenState extends State<WebHomeScreen> {
               ),
               itemCount: proximosPedidos.take(3).length,
               shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
                 final pedido = proximosPedidos[index];
                 return Card(
                   child: Padding(
-                    padding: EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(16),
                     child: Row(
                       children: [
-                        Icon(Icons.check_circle, color: Colors.green),
-                        SizedBox(width: 12),
+                        const Icon(Icons.check_circle, color: Colors.green),
+                        const SizedBox(width: 12),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -441,7 +443,7 @@ class _WebHomeScreenState extends State<WebHomeScreen> {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          DrawerHeader(
+          const DrawerHeader(
             decoration: BoxDecoration(
               color: AppTheme.primaryColor,
             ),

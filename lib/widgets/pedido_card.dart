@@ -22,9 +22,9 @@ class PedidoCard extends StatelessWidget {
     final isAtrasado = diasRestantes < 0 && pedido.status != StatusPedido.entregue;
 
     return Card(
-      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -50,7 +50,7 @@ class PedidoCard extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
                     color: _getStatusColor().withOpacity(0.2),
                     borderRadius: BorderRadius.circular(20),
@@ -66,7 +66,7 @@ class PedidoCard extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -103,19 +103,19 @@ class PedidoCard extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 TextButton.icon(
                   onPressed: onTap,
-                  icon: Icon(Icons.edit),
-                  label: Text('Editar'),
+                  icon: const Icon(Icons.edit),
+                  label: const Text('Editar'),
                 ),
                 TextButton.icon(
                   onPressed: onDelete,
-                  icon: Icon(Icons.delete, color: Colors.red),
-                  label: Text('Deletar', style: TextStyle(color: Colors.red)),
+                  icon: const Icon(Icons.delete, color: Colors.red),
+                  label: const Text('Deletar', style: TextStyle(color: Colors.red)),
                 ),
               ],
             ),

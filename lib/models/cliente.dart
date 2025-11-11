@@ -16,6 +16,7 @@ class Cliente {
   final double manga;
   final double ombro;
   final double pescoco;
+  final String tamanho;
   
   Cliente({
     required this.id,
@@ -33,6 +34,7 @@ class Cliente {
     required this.manga,
     required this.ombro,
     required this.pescoco,
+    required this.tamanho,
   });
 
   // Converter para Map para banco de dados
@@ -53,6 +55,7 @@ class Cliente {
       'manga': manga,
       'ombro': ombro,
       'pescoco': pescoco,
+      'tamanho': tamanho,
     };
   }
 
@@ -74,6 +77,7 @@ class Cliente {
       manga: (map['manga'] ?? 0).toDouble(),
       ombro: (map['ombro'] ?? 0).toDouble(),
       pescoco: (map['pescoco'] ?? 0).toDouble(),
+      tamanho: map['tamanho'] ?? '',
     );
   }
 
@@ -94,6 +98,7 @@ class Cliente {
     double? manga,
     double? ombro,
     double? pescoco,
+    String? tamanho,
   }) {
     return Cliente(
       id: id ?? this.id,
@@ -111,6 +116,7 @@ class Cliente {
       manga: manga ?? this.manga,
       ombro: ombro ?? this.ombro,
       pescoco: pescoco ?? this.pescoco,
+      tamanho: tamanho ?? this.tamanho,
     );
   }
 }

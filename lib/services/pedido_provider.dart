@@ -92,7 +92,7 @@ class PedidoProvider extends ChangeNotifier {
   // Obter próximos pedidos a entregar
   List<Pedido> obterProximosPedidos() {
     final agora = DateTime.now();
-    final proximosDias = agora.add(Duration(days: 7));
+    final proximosDias = agora.add(const Duration(days: 7));
     return _pedidos
         .where((p) =>
             p.dataPrazo.isAfter(agora) &&

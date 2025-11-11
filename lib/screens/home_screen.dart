@@ -11,6 +11,8 @@ import 'orcamentos_screen.dart';
 import 'portfolio_screen.dart';
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -45,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
           });
         },
         type: BottomNavigationBarType.fixed,
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Início',
@@ -76,13 +78,13 @@ class _HomeScreenState extends State<HomeScreen> {
       case 0:
         return _buildDashboard();
       case 1:
-        return ClientesScreen();
+        return const ClientesScreen();
       case 2:
-        return PedidosScreen();
+        return const PedidosScreen();
       case 3:
-        return OrcamentosScreen();
+        return const OrcamentosScreen();
       case 4:
-        return PortfolioScreen();
+        return const PortfolioScreen();
       default:
         return _buildDashboard();
     }
@@ -91,7 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildDashboard() {
     return SafeArea(
       child: SingleChildScrollView(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -103,24 +105,24 @@ class _HomeScreenState extends State<HomeScreen> {
                     fontWeight: FontWeight.bold,
                   ),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text(
               'Bem-vindo ao seu gerenciador de costura',
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: AppTheme.textSecondaryColor,
                   ),
             ),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
 
             // Cards de resumo
             _buildResumoCards(),
 
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
 
             // Pedidos em atraso
             _buildPedidosEmAtraso(),
 
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
 
             // Próximos pedidos
             _buildProximosPedidos(),
@@ -143,7 +145,7 @@ class _HomeScreenState extends State<HomeScreen> {
           crossAxisSpacing: 12,
           mainAxisSpacing: 12,
           shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           children: [
             _buildResumoCard(
               titulo: 'Clientes',
@@ -183,13 +185,13 @@ class _HomeScreenState extends State<HomeScreen> {
   }) {
     return Card(
       child: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
-              padding: EdgeInsets.all(8),
+              padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
                 color: cor.withOpacity(0.2),
                 borderRadius: BorderRadius.circular(8),
@@ -224,7 +226,7 @@ class _HomeScreenState extends State<HomeScreen> {
         final pedidosAtrasados = pedidoProvider.obterPedidosEmAtraso();
 
         if (pedidosAtrasados.isEmpty) {
-          return SizedBox.shrink();
+          return const SizedBox.shrink();
         }
 
         return Column(
@@ -236,14 +238,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     color: Colors.red,
                   ),
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             ...pedidosAtrasados.take(3).map((pedido) {
               return Card(
                 color: Colors.red.withOpacity(0.1),
                 child: ListTile(
                   title: Text(pedido.descricao),
                   subtitle: Text('Prazo: ${pedido.dataPrazo.day}/${pedido.dataPrazo.month}'),
-                  trailing: Icon(Icons.warning, color: Colors.red),
+                  trailing: const Icon(Icons.warning, color: Colors.red),
                 ),
               );
             }).toList(),
@@ -259,7 +261,7 @@ class _HomeScreenState extends State<HomeScreen> {
         final proximosPedidos = pedidoProvider.obterProximosPedidos();
 
         if (proximosPedidos.isEmpty) {
-          return SizedBox.shrink();
+          return const SizedBox.shrink();
         }
 
         return Column(
@@ -269,13 +271,13 @@ class _HomeScreenState extends State<HomeScreen> {
               'Próximos Pedidos',
               style: Theme.of(context).textTheme.titleLarge,
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             ...proximosPedidos.take(3).map((pedido) {
               return Card(
                 child: ListTile(
                   title: Text(pedido.descricao),
                   subtitle: Text('Prazo: ${pedido.dataPrazo.day}/${pedido.dataPrazo.month}'),
-                  trailing: Icon(Icons.check_circle, color: Colors.green),
+                  trailing: const Icon(Icons.check_circle, color: Colors.green),
                 ),
               );
             }).toList(),

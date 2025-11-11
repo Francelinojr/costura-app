@@ -7,6 +7,8 @@ import '../widgets/pedido_card.dart';
 import 'pedido_form_screen.dart';
 
 class PedidosScreen extends StatefulWidget {
+  const PedidosScreen({super.key});
+
   @override
   State<PedidosScreen> createState() => _PedidosScreenState();
 }
@@ -18,7 +20,7 @@ class _PedidosScreenState extends State<PedidosScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Meus Pedidos'),
+        title: const Text('Meus Pedidos'),
         elevation: 0,
       ),
       body: Column(
@@ -26,19 +28,19 @@ class _PedidosScreenState extends State<PedidosScreen> {
           // Filtro de status
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             child: Row(
               children: [
                 _buildFilterChip(null, 'Todos'),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 _buildFilterChip(StatusPedido.orcamento, 'Orçamento'),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 _buildFilterChip(StatusPedido.confirmado, 'Confirmado'),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 _buildFilterChip(StatusPedido.emProgresso, 'Em Progresso'),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 _buildFilterChip(StatusPedido.pronto, 'Pronto'),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 _buildFilterChip(StatusPedido.entregue, 'Entregue'),
               ],
             ),
@@ -54,7 +56,7 @@ class _PedidosScreenState extends State<PedidosScreen> {
                 }
 
                 if (pedidoProvider.isLoading) {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 }
 
                 if (pedidos.isEmpty) {
@@ -62,8 +64,8 @@ class _PedidosScreenState extends State<PedidosScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.assignment_outlined, size: 64, color: Colors.grey),
-                        SizedBox(height: 16),
+                        const Icon(Icons.assignment_outlined, size: 64, color: Colors.grey),
+                        const SizedBox(height: 16),
                         Text(
                           'Nenhum pedido encontrado',
                           style: Theme.of(context).textTheme.titleMedium,
@@ -108,13 +110,13 @@ class _PedidosScreenState extends State<PedidosScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => PedidoFormScreen(),
+              builder: (context) => const PedidoFormScreen(),
             ),
           ).then((_) {
             context.read<PedidoProvider>().carregarPedidos();
           });
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
@@ -140,22 +142,22 @@ class _PedidosScreenState extends State<PedidosScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Deletar pedido?'),
-        content: Text('Esta ação não pode ser desfeita.'),
+        title: const Text('Deletar pedido?'),
+        content: const Text('Esta ação não pode ser desfeita.'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text('Cancelar'),
+            child: const Text('Cancelar'),
           ),
           TextButton(
             onPressed: () {
               provider.deletarPedido(pedidoId);
               Navigator.pop(context);
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Pedido deletado com sucesso')),
+                const SnackBar(content: Text('Pedido deletado com sucesso')),
               );
             },
-            child: Text('Deletar', style: TextStyle(color: Colors.red)),
+            child: const Text('Deletar', style: TextStyle(color: Colors.red)),
           ),
         ],
       ),

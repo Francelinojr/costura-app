@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:uuid/uuid.dart';
-import '../models/cliente.dart';
 import '../services/cliente_provider.dart';
 import '../widgets/cliente_card.dart';
 import 'cliente_form_screen.dart';
 
 class ClientesScreen extends StatefulWidget {
+  const ClientesScreen({super.key});
+
   @override
   State<ClientesScreen> createState() => _ClientesScreenState();
 }
@@ -25,14 +25,14 @@ class _ClientesScreenState extends State<ClientesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Minhas Clientes'),
+        title: const Text('Minhas Clientes'),
         elevation: 0,
       ),
       body: Column(
         children: [
           // Barra de busca
           Padding(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             child: TextField(
               controller: _searchController,
               onChanged: (value) {
@@ -42,7 +42,7 @@ class _ClientesScreenState extends State<ClientesScreen> {
               },
               decoration: InputDecoration(
                 hintText: 'Buscar cliente...',
-                prefixIcon: Icon(Icons.search),
+                prefixIcon: const Icon(Icons.search),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
@@ -58,7 +58,7 @@ class _ClientesScreenState extends State<ClientesScreen> {
                     : clienteProvider.buscarClientes(_searchTerm);
 
                 if (clienteProvider.isLoading) {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 }
 
                 if (clientes.isEmpty) {
@@ -66,8 +66,8 @@ class _ClientesScreenState extends State<ClientesScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.people_outline, size: 64, color: Colors.grey),
-                        SizedBox(height: 16),
+                        const Icon(Icons.people_outline, size: 64, color: Colors.grey),
+                        const SizedBox(height: 16),
                         Text(
                           _searchTerm.isEmpty
                               ? 'Nenhuma cliente cadastrada'
@@ -111,13 +111,13 @@ class _ClientesScreenState extends State<ClientesScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ClienteFormScreen(),
+              builder: (context) => const ClienteFormScreen(),
             ),
           ).then((_) {
             context.read<ClienteProvider>().carregarClientes();
           });
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
@@ -130,22 +130,22 @@ class _ClientesScreenState extends State<ClientesScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Deletar cliente?'),
-        content: Text('Esta ação não pode ser desfeita.'),
+        title: const Text('Deletar cliente?'),
+        content: const Text('Esta ação não pode ser desfeita.'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text('Cancelar'),
+            child: const Text('Cancelar'),
           ),
           TextButton(
             onPressed: () {
               provider.deletarCliente(clienteId);
               Navigator.pop(context);
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Cliente deletado com sucesso')),
+                const SnackBar(content: Text('Cliente deletado com sucesso')),
               );
             },
-            child: Text('Deletar', style: TextStyle(color: Colors.red)),
+            child: const Text('Deletar', style: TextStyle(color: Colors.red)),
           ),
         ],
       ),

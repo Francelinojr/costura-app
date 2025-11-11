@@ -40,14 +40,14 @@ class CosturaApp extends StatelessWidget {
     try {
       // Se conseguir acessar Platform, é mobile/desktop
       if (Platform.isAndroid || Platform.isIOS) {
-        return HomeScreen();
+        return const HomeScreen();
       }
     } catch (e) {
       // Se não conseguir acessar Platform, é web
-      return WebHomeScreen();
+      return const WebHomeScreen();
     }
     
     // Padrão para desktop/web
-    return WebHomeScreen();
+    return const WebHomeScreen();
   }
 }

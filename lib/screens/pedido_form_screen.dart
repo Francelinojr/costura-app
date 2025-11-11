@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 import '../models/pedido.dart';
-import '../models/cliente.dart';
 import '../services/pedido_provider.dart';
 import '../services/cliente_provider.dart';
 import '../utils/constants.dart';
@@ -53,18 +52,18 @@ class _PedidoFormScreenState extends State<PedidoFormScreen> {
         title: Text(widget.pedido == null ? 'Novo Pedido' : 'Editar Pedido'),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Seleção de cliente
             _buildSectionTitle('Cliente'),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             Consumer<ClienteProvider>(
               builder: (context, clienteProvider, _) {
                 return DropdownButtonFormField<String>(
-                  value: _clienteSelecionado,
-                  hint: Text('Selecione uma cliente'),
+                  initialValue: _clienteSelecionado,
+                  hint: const Text('Selecione uma cliente'),
                   items: clienteProvider.clientes.map((cliente) {
                     return DropdownMenuItem(
                       value: cliente.id,
@@ -76,19 +75,19 @@ class _PedidoFormScreenState extends State<PedidoFormScreen> {
                       _clienteSelecionado = value;
                     });
                   },
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Cliente *',
                   ),
                 );
               },
             ),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
 
             // Tipo de peça
             _buildSectionTitle('Detalhes do Pedido'),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             DropdownButtonFormField<String>(
-              value: _tipoPecaSelecionado,
+              initialValue: _tipoPecaSelecionado,
               items: AppConstants.tiposPeca.map((tipo) {
                 return DropdownMenuItem(
                   value: tipo,
@@ -100,34 +99,34 @@ class _PedidoFormScreenState extends State<PedidoFormScreen> {
                   _tipoPecaSelecionado = value ?? 'Blusa';
                 });
               },
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Tipo de Peça',
               ),
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             TextField(
               controller: _descricaoController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Descrição *',
                 hintText: 'Descreva o pedido',
               ),
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             TextField(
               controller: _valorController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Valor (R\$)',
                 hintText: '0,00',
               ),
               keyboardType: TextInputType.number,
             ),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
 
             // Status e prazo
             _buildSectionTitle('Status e Prazo'),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             DropdownButtonFormField<StatusPedido>(
-              value: _statusSelecionado,
+              initialValue: _statusSelecionado,
               items: StatusPedido.values.map((status) {
                 return DropdownMenuItem(
                   value: status,
@@ -139,37 +138,37 @@ class _PedidoFormScreenState extends State<PedidoFormScreen> {
                   _statusSelecionado = value ?? StatusPedido.orcamento;
                 });
               },
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Status',
               ),
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             ListTile(
-              title: Text('Data Prazo'),
+              title: const Text('Data Prazo'),
               subtitle: Text(
                 _dataPrazo != null
                     ? AppConstants.formatarData(_dataPrazo!)
                     : 'Selecione uma data',
               ),
-              trailing: Icon(Icons.calendar_today),
+              trailing: const Icon(Icons.calendar_today),
               onTap: _selecionarDataPrazo,
               contentPadding: EdgeInsets.zero,
             ),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
 
             // Observações
             _buildSectionTitle('Observações'),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             TextField(
               controller: _observacoesController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Observações',
                 hintText: 'Adicione observações importantes',
                 border: OutlineInputBorder(),
               ),
               maxLines: 4,
             ),
-            SizedBox(height: 32),
+            const SizedBox(height: 32),
 
             // Botões
             Row(
@@ -177,14 +176,14 @@ class _PedidoFormScreenState extends State<PedidoFormScreen> {
                 Expanded(
                   child: OutlinedButton(
                     onPressed: () => Navigator.pop(context),
-                    child: Text('Cancelar'),
+                    child: const Text('Cancelar'),
                   ),
                 ),
-                SizedBox(width: 12),
+                const SizedBox(width: 12),
                 Expanded(
                   child: ElevatedButton(
                     onPressed: _salvarPedido,
-                    child: Text('Salvar'),
+                    child: const Text('Salvar'),
                   ),
                 ),
               ],
@@ -207,9 +206,9 @@ class _PedidoFormScreenState extends State<PedidoFormScreen> {
   void _selecionarDataPrazo() async {
     final data = await showDatePicker(
       context: context,
-      initialDate: _dataPrazo ?? DateTime.now().add(Duration(days: 7)),
+      initialDate: _dataPrazo ?? DateTime.now().add(const Duration(days: 7)),
       firstDate: DateTime.now(),
-      lastDate: DateTime.now().add(Duration(days: 365)),
+      lastDate: DateTime.now().add(const Duration(days: 365)),
     );
 
     if (data != null) {
@@ -222,21 +221,21 @@ class _PedidoFormScreenState extends State<PedidoFormScreen> {
   void _salvarPedido() {
     if (_clienteSelecionado == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Por favor, selecione uma cliente')),
+        const SnackBar(content: Text('Por favor, selecione uma cliente')),
       );
       return;
     }
 
     if (_descricaoController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Por favor, preencha a descrição')),
+        const SnackBar(content: Text('Por favor, preencha a descrição')),
       );
       return;
     }
 
     if (_dataPrazo == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Por favor, selecione uma data de prazo')),
+        const SnackBar(content: Text('Por favor, selecione uma data de prazo')),
       );
       return;
     }
@@ -259,12 +258,12 @@ class _PedidoFormScreenState extends State<PedidoFormScreen> {
     if (widget.pedido == null) {
       provider.adicionarPedido(pedido);
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Pedido adicionado com sucesso')),
+        const SnackBar(content: Text('Pedido adicionado com sucesso')),
       );
     } else {
       provider.atualizarPedido(pedido);
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Pedido atualizado com sucesso')),
+        const SnackBar(content: Text('Pedido atualizado com sucesso')),
       );
     }
 

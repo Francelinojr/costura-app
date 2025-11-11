@@ -27,6 +27,8 @@ class _ClienteFormScreenState extends State<ClienteFormScreen> {
   late TextEditingController _mangaController;
   late TextEditingController _ombroController;
   late TextEditingController _pescocoController;
+  String? _tamanhoSelecionado;
+  final List<String> _tamanhos = ['PP', 'P', 'M', 'G', 'GG'];
 
   @override
   void initState() {
@@ -48,6 +50,7 @@ class _ClienteFormScreenState extends State<ClienteFormScreen> {
     _mangaController = TextEditingController(text: widget.cliente?.manga.toString() ?? '');
     _ombroController = TextEditingController(text: widget.cliente?.ombro.toString() ?? '');
     _pescocoController = TextEditingController(text: widget.cliente?.pescoco.toString() ?? '');
+    _tamanhoSelecionado = widget.cliente?.tamanho.isEmpty == false ? widget.cliente!.tamanho : null;
   }
 
   @override
@@ -75,83 +78,106 @@ class _ClienteFormScreenState extends State<ClienteFormScreen> {
         title: Text(widget.cliente == null ? 'Nova Cliente' : 'Editar Cliente'),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Seção de dados pessoais
             _buildSectionTitle('Dados Pessoais'),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             TextField(
               controller: _nomeController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Nome *',
                 hintText: 'Nome da cliente',
               ),
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             TextField(
               controller: _telefoneController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Telefone',
                 hintText: '(11) 99999-9999',
               ),
               keyboardType: TextInputType.phone,
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             TextField(
               controller: _emailController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Email',
                 hintText: 'email@example.com',
               ),
               keyboardType: TextInputType.emailAddress,
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             TextField(
               controller: _escolaController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Escola/Instituição',
                 hintText: 'Nome da escola',
               ),
             ),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
 
             // Seção de medidas
             _buildSectionTitle('Medidas (em cm)'),
-            SizedBox(height: 12),
-            GridView.count(
-              crossAxisCount: 2,
-              crossAxisSpacing: 12,
-              mainAxisSpacing: 12,
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
+            const SizedBox(height: 12),
+
+            DropdownButtonFormField<String>(
+              decoration: const InputDecoration(
+                labelText: 'Tamanho da Roupa',
+                border: OutlineInputBorder(),
+              ),
+              value: _tamanhoSelecionado,
+              hint: const Text('Selecione o Tamanho'),
+              items: _tamanhos.map((String tamanho) {
+                return DropdownMenuItem<String>(
+                  value: tamanho,
+                  child: Text(tamanho),
+                );
+              }).toList(),
+              onChanged: (String? newValue) {
+                setState(() {
+                  _tamanhoSelecionado = newValue;
+                });
+              },
+            ),
+
+            const SizedBox(height: 12),
+
+            // Versão moderna usando Wrap
+            Wrap(
+              spacing: 12.0,
+              runSpacing: 12.0,
               children: [
-                _buildMeasurementField('Busto', _bustoController),
-                _buildMeasurementField('Cintura', _cinturaController),
-                _buildMeasurementField('Quadril', _quadrilController),
-                _buildMeasurementField('Manga', _mangaController),
-                _buildMeasurementField('Comprimento Blusa', _comprimentoBlusaController),
-                _buildMeasurementField('Comprimento Calça', _comprimentoCalcaController),
-                _buildMeasurementField('Ombro', _ombroController),
-                _buildMeasurementField('Pescoço', _pescocoController),
+                SizedBox(width: 200, child: _buildMeasurementField('Busto', _bustoController)),
+                SizedBox(width: 200, child: _buildMeasurementField('Cintura', _cinturaController)),
+                SizedBox(width: 200, child: _buildMeasurementField('Quadril', _quadrilController)),
+                SizedBox(width: 200, child: _buildMeasurementField('Manga', _mangaController)),
+                SizedBox(width: 200, child: _buildMeasurementField('Comprimento Blusa', _comprimentoBlusaController)),
+                SizedBox(width: 200, child: _buildMeasurementField('Comprimento Calça', _comprimentoCalcaController)),
+                SizedBox(width: 200, child: _buildMeasurementField('Ombro', _ombroController)),
+                SizedBox(width: 200, child: _buildMeasurementField('Pescoço', _pescocoController)),
               ],
             ),
-            SizedBox(height: 24),
+
+            const SizedBox(height: 24),
 
             // Observações
             _buildSectionTitle('Observações'),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             TextField(
               controller: _observacoesController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Observações',
                 hintText: 'Adicione observações importantes',
                 border: OutlineInputBorder(),
               ),
               maxLines: 4,
             ),
-            SizedBox(height: 32),
+
+            const SizedBox(height: 32),
 
             // Botões
             Row(
@@ -159,14 +185,14 @@ class _ClienteFormScreenState extends State<ClienteFormScreen> {
                 Expanded(
                   child: OutlinedButton(
                     onPressed: () => Navigator.pop(context),
-                    child: Text('Cancelar'),
+                    child: const Text('Cancelar'),
                   ),
                 ),
-                SizedBox(width: 12),
+                const SizedBox(width: 12),
                 Expanded(
                   child: ElevatedButton(
                     onPressed: _salvarCliente,
-                    child: Text('Salvar'),
+                    child: const Text('Salvar'),
                   ),
                 ),
               ],
@@ -200,7 +226,14 @@ class _ClienteFormScreenState extends State<ClienteFormScreen> {
   void _salvarCliente() {
     if (_nomeController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Por favor, preencha o nome')),
+        const SnackBar(content: Text('Por favor, preencha o nome')),
+      );
+      return;
+    }
+
+    if (_tamanhoSelecionado == null || _tamanhoSelecionado!.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Por favor, selecione o tamanho da roupa')),
       );
       return;
     }
@@ -221,6 +254,7 @@ class _ClienteFormScreenState extends State<ClienteFormScreen> {
       manga: double.tryParse(_mangaController.text) ?? 0,
       ombro: double.tryParse(_ombroController.text) ?? 0,
       pescoco: double.tryParse(_pescocoController.text) ?? 0,
+      tamanho: _tamanhoSelecionado!,
     );
 
     final provider = context.read<ClienteProvider>();
@@ -228,12 +262,12 @@ class _ClienteFormScreenState extends State<ClienteFormScreen> {
     if (widget.cliente == null) {
       provider.adicionarCliente(cliente);
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Cliente adicionado com sucesso')),
+        const SnackBar(content: Text('Cliente adicionado com sucesso')),
       );
     } else {
       provider.atualizarCliente(cliente);
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Cliente atualizado com sucesso')),
+        const SnackBar(content: Text('Cliente atualizado com sucesso')),
       );
     }
 

@@ -61,18 +61,18 @@ class _OrcamentoFormScreenState extends State<OrcamentoFormScreen> {
         title: Text(widget.orcamento == null ? 'Novo Orçamento' : 'Editar Orçamento'),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Seleção de cliente
             _buildSectionTitle('Cliente'),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             Consumer<ClienteProvider>(
               builder: (context, clienteProvider, _) {
                 return DropdownButtonFormField<String>(
-                  value: _clienteSelecionado,
-                  hint: Text('Selecione uma cliente'),
+                  initialValue: _clienteSelecionado,
+                  hint: const Text('Selecione uma cliente'),
                   items: clienteProvider.clientes.map((cliente) {
                     return DropdownMenuItem(
                       value: cliente.id,
@@ -84,19 +84,19 @@ class _OrcamentoFormScreenState extends State<OrcamentoFormScreen> {
                       _clienteSelecionado = value;
                     });
                   },
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Cliente *',
                   ),
                 );
               },
             ),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
 
             // Detalhes
             _buildSectionTitle('Detalhes do Orçamento'),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             DropdownButtonFormField<String>(
-              value: _tipoPecaSelecionado,
+              initialValue: _tipoPecaSelecionado,
               items: AppConstants.tiposPeca.map((tipo) {
                 return DropdownMenuItem(
                   value: tipo,
@@ -108,61 +108,61 @@ class _OrcamentoFormScreenState extends State<OrcamentoFormScreen> {
                   _tipoPecaSelecionado = value ?? 'Blusa';
                 });
               },
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Tipo de Peça',
               ),
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             TextField(
               controller: _descricaoController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Descrição *',
                 hintText: 'Descreva o orçamento',
               ),
             ),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
 
             // Valores
             _buildSectionTitle('Valores'),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             TextField(
               controller: _valorMaoDeObraController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Mão de Obra (R\$)',
                 hintText: '0,00',
               ),
               keyboardType: TextInputType.number,
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             TextField(
               controller: _valorTecidoController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Tecido (R\$)',
                 hintText: '0,00',
               ),
               keyboardType: TextInputType.number,
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             TextField(
               controller: _valorAcabamentoController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Acabamento (R\$)',
                 hintText: '0,00',
               ),
               keyboardType: TextInputType.number,
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             TextField(
               controller: _descontoController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Desconto (R\$)',
                 hintText: '0,00',
               ),
               keyboardType: TextInputType.number,
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             Container(
-              padding: EdgeInsets.all(12),
+              padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
                 color: Colors.purple.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(8),
@@ -186,29 +186,29 @@ class _OrcamentoFormScreenState extends State<OrcamentoFormScreen> {
                 ],
               ),
             ),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
 
             // Data de validade
             _buildSectionTitle('Validade'),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             ListTile(
-              title: Text('Data de Validade'),
+              title: const Text('Data de Validade'),
               subtitle: Text(
                 _dataValidade != null
                     ? AppConstants.formatarData(_dataValidade!)
                     : 'Selecione uma data',
               ),
-              trailing: Icon(Icons.calendar_today),
+              trailing: const Icon(Icons.calendar_today),
               onTap: _selecionarDataValidade,
               contentPadding: EdgeInsets.zero,
             ),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
 
             // Status
             _buildSectionTitle('Status'),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             CheckboxListTile(
-              title: Text('Orçamento Aceito'),
+              title: const Text('Orçamento Aceito'),
               value: _aceito,
               onChanged: (value) {
                 setState(() {
@@ -217,21 +217,21 @@ class _OrcamentoFormScreenState extends State<OrcamentoFormScreen> {
               },
               contentPadding: EdgeInsets.zero,
             ),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
 
             // Observações
             _buildSectionTitle('Observações'),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             TextField(
               controller: _observacoesController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Observações',
                 hintText: 'Adicione observações importantes',
                 border: OutlineInputBorder(),
               ),
               maxLines: 4,
             ),
-            SizedBox(height: 32),
+            const SizedBox(height: 32),
 
             // Botões
             Row(
@@ -239,14 +239,14 @@ class _OrcamentoFormScreenState extends State<OrcamentoFormScreen> {
                 Expanded(
                   child: OutlinedButton(
                     onPressed: () => Navigator.pop(context),
-                    child: Text('Cancelar'),
+                    child: const Text('Cancelar'),
                   ),
                 ),
-                SizedBox(width: 12),
+                const SizedBox(width: 12),
                 Expanded(
                   child: ElevatedButton(
                     onPressed: _salvarOrcamento,
-                    child: Text('Salvar'),
+                    child: const Text('Salvar'),
                   ),
                 ),
               ],
@@ -269,9 +269,9 @@ class _OrcamentoFormScreenState extends State<OrcamentoFormScreen> {
   void _selecionarDataValidade() async {
     final data = await showDatePicker(
       context: context,
-      initialDate: _dataValidade ?? DateTime.now().add(Duration(days: 30)),
+      initialDate: _dataValidade ?? DateTime.now().add(const Duration(days: 30)),
       firstDate: DateTime.now(),
-      lastDate: DateTime.now().add(Duration(days: 365)),
+      lastDate: DateTime.now().add(const Duration(days: 365)),
     );
 
     if (data != null) {
@@ -292,21 +292,21 @@ class _OrcamentoFormScreenState extends State<OrcamentoFormScreen> {
   void _salvarOrcamento() {
     if (_clienteSelecionado == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Por favor, selecione uma cliente')),
+        const SnackBar(content: Text('Por favor, selecione uma cliente')),
       );
       return;
     }
 
     if (_descricaoController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Por favor, preencha a descrição')),
+        const SnackBar(content: Text('Por favor, preencha a descrição')),
       );
       return;
     }
 
     if (_dataValidade == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Por favor, selecione uma data de validade')),
+        const SnackBar(content: Text('Por favor, selecione uma data de validade')),
       );
       return;
     }
@@ -331,12 +331,12 @@ class _OrcamentoFormScreenState extends State<OrcamentoFormScreen> {
     if (widget.orcamento == null) {
       provider.adicionarOrcamento(orcamento);
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Orçamento adicionado com sucesso')),
+        const SnackBar(content: Text('Orçamento adicionado com sucesso')),
       );
     } else {
       provider.atualizarOrcamento(orcamento);
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Orçamento atualizado com sucesso')),
+        const SnackBar(content: Text('Orçamento atualizado com sucesso')),
       );
     }
 

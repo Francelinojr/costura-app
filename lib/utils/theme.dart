@@ -23,7 +23,7 @@ class AppTheme {
   static ThemeData lightTheme = ThemeData(
     useMaterial3: true,
     brightness: Brightness.light,
-    colorScheme: ColorScheme.light(
+    colorScheme: const ColorScheme.light(
       primary: primaryColor,
       secondary: accentColor,
       surface: surfaceColor,
@@ -31,7 +31,7 @@ class AppTheme {
       outline: borderColor,
     ),
     scaffoldBackgroundColor: backgroundColor,
-    appBarTheme: AppBarTheme(
+    appBarTheme: const AppBarTheme(
       backgroundColor: surfaceColor,
       elevation: 0,
       centerTitle: true,
@@ -42,7 +42,7 @@ class AppTheme {
       ),
       iconTheme: IconThemeData(color: textPrimaryColor),
     ),
-    cardTheme: CardTheme(
+    cardTheme: CardThemeData(
       color: surfaceColor,
       elevation: 2,
       shape: RoundedRectangleBorder(
@@ -53,7 +53,7 @@ class AppTheme {
       style: ElevatedButton.styleFrom(
         backgroundColor: primaryColor,
         foregroundColor: Colors.white,
-        padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
         ),
@@ -63,8 +63,8 @@ class AppTheme {
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
         foregroundColor: primaryColor,
-        side: BorderSide(color: primaryColor),
-        padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+        side: const BorderSide(color: primaryColor),
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
         ),
@@ -73,37 +73,37 @@ class AppTheme {
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
         foregroundColor: primaryColor,
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       ),
     ),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: backgroundColor,
-      contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8),
-        borderSide: BorderSide(color: borderColor),
+        borderSide: const BorderSide(color: borderColor),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8),
-        borderSide: BorderSide(color: borderColor),
+        borderSide: const BorderSide(color: borderColor),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8),
-        borderSide: BorderSide(color: primaryColor, width: 2),
+        borderSide: const BorderSide(color: primaryColor, width: 2),
       ),
       errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8),
-        borderSide: BorderSide(color: errorColor),
+        borderSide: const BorderSide(color: errorColor),
       ),
       focusedErrorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8),
-        borderSide: BorderSide(color: errorColor, width: 2),
+        borderSide: const BorderSide(color: errorColor, width: 2),
       ),
-      labelStyle: TextStyle(color: textSecondaryColor),
-      hintStyle: TextStyle(color: textSecondaryColor),
+      labelStyle: const TextStyle(color: textSecondaryColor),
+      hintStyle: const TextStyle(color: textSecondaryColor),
     ),
-    textTheme: TextTheme(
+    textTheme: const TextTheme(
       displayLarge: TextStyle(
         fontSize: 32,
         fontWeight: FontWeight.bold,

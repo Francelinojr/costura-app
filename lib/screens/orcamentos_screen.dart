@@ -7,6 +7,8 @@ import '../utils/constants.dart';
 import 'orcamento_form_screen.dart';
 
 class OrcamentosScreen extends StatefulWidget {
+  const OrcamentosScreen({super.key});
+
   @override
   State<OrcamentosScreen> createState() => _OrcamentosScreenState();
 }
@@ -18,7 +20,7 @@ class _OrcamentosScreenState extends State<OrcamentosScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Orçamentos'),
+        title: const Text('Orçamentos'),
         elevation: 0,
       ),
       body: Column(
@@ -26,13 +28,13 @@ class _OrcamentosScreenState extends State<OrcamentosScreen> {
           // Filtro
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             child: Row(
               children: [
                 _buildFilterChip('Todos', 0),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 _buildFilterChip('Pendentes', 1),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 _buildFilterChip('Aceitos', 2),
               ],
             ),
@@ -50,7 +52,7 @@ class _OrcamentosScreenState extends State<OrcamentosScreen> {
                 }
 
                 if (orcamentoProvider.isLoading) {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 }
 
                 if (orcamentos.isEmpty) {
@@ -58,8 +60,8 @@ class _OrcamentosScreenState extends State<OrcamentosScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.receipt_outlined, size: 64, color: Colors.grey),
-                        SizedBox(height: 16),
+                        const Icon(Icons.receipt_outlined, size: 64, color: Colors.grey),
+                        const SizedBox(height: 16),
                         Text(
                           'Nenhum orçamento encontrado',
                           style: Theme.of(context).textTheme.titleMedium,
@@ -93,13 +95,13 @@ class _OrcamentosScreenState extends State<OrcamentosScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => OrcamentoFormScreen(),
+              builder: (context) => const OrcamentoFormScreen(),
             ),
           ).then((_) {
             context.read<OrcamentoProvider>().carregarOrcamentos();
           });
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
@@ -124,9 +126,9 @@ class _OrcamentosScreenState extends State<OrcamentosScreen> {
     OrcamentoProvider provider,
   ) {
     return Card(
-      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -151,7 +153,7 @@ class _OrcamentosScreenState extends State<OrcamentosScreen> {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
                     color: orcamento.aceito ? Colors.green.withOpacity(0.2) : Colors.orange.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(20),
@@ -167,9 +169,9 @@ class _OrcamentosScreenState extends State<OrcamentosScreen> {
                 ),
               ],
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             Container(
-              padding: EdgeInsets.all(12),
+              padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
                 color: Colors.grey.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(8),
@@ -198,7 +200,7 @@ class _OrcamentosScreenState extends State<OrcamentosScreen> {
                       Text(AppConstants.formatarMoeda(orcamento.valorAcabamento), style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w600)),
                     ],
                   ),
-                  Divider(),
+                  const Divider(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -209,7 +211,7 @@ class _OrcamentosScreenState extends State<OrcamentosScreen> {
                 ],
               ),
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -227,15 +229,15 @@ class _OrcamentosScreenState extends State<OrcamentosScreen> {
                           provider.carregarOrcamentos();
                         });
                       },
-                      icon: Icon(Icons.edit),
-                      label: Text('Editar'),
+                      icon: const Icon(Icons.edit),
+                      label: const Text('Editar'),
                     ),
                     TextButton.icon(
                       onPressed: () {
                         _mostrarDialogoConfirmacao(context, orcamento.id, provider);
                       },
-                      icon: Icon(Icons.delete, color: Colors.red),
-                      label: Text('Deletar', style: TextStyle(color: Colors.red)),
+                      icon: const Icon(Icons.delete, color: Colors.red),
+                      label: const Text('Deletar', style: TextStyle(color: Colors.red)),
                     ),
                   ],
                 ),
@@ -255,22 +257,22 @@ class _OrcamentosScreenState extends State<OrcamentosScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Deletar orçamento?'),
-        content: Text('Esta ação não pode ser desfeita.'),
+        title: const Text('Deletar orçamento?'),
+        content: const Text('Esta ação não pode ser desfeita.'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text('Cancelar'),
+            child: const Text('Cancelar'),
           ),
           TextButton(
             onPressed: () {
               provider.deletarOrcamento(orcamentoId);
               Navigator.pop(context);
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Orçamento deletado com sucesso')),
+                const SnackBar(content: Text('Orçamento deletado com sucesso')),
               );
             },
-            child: Text('Deletar', style: TextStyle(color: Colors.red)),
+            child: const Text('Deletar', style: TextStyle(color: Colors.red)),
           ),
         ],
       ),

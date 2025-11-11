@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../models/cliente.dart';
-import '../utils/constants.dart';
 
 class ClienteCard extends StatelessWidget {
   final Cliente cliente;
@@ -17,15 +16,15 @@ class ClienteCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: ListTile(
-        contentPadding: EdgeInsets.all(16),
+        contentPadding: const EdgeInsets.all(16),
         leading: CircleAvatar(
           radius: 28,
           backgroundColor: Colors.purple.withOpacity(0.2),
           child: Text(
             cliente.nome.isNotEmpty ? cliente.nome[0].toUpperCase() : '?',
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
               color: Colors.purple,
@@ -41,7 +40,7 @@ class ClienteCard extends StatelessWidget {
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 4),
+            const SizedBox(height: 4),
             Text(
               cliente.telefone.isNotEmpty ? cliente.telefone : 'Sem telefone',
               style: Theme.of(context).textTheme.bodySmall,
@@ -58,24 +57,24 @@ class ClienteCard extends StatelessWidget {
         trailing: PopupMenuButton(
           itemBuilder: (context) => [
             PopupMenuItem(
-              child: Row(
+              onTap: onTap,
+              child: const Row(
                 children: [
                   Icon(Icons.edit, size: 20),
                   SizedBox(width: 8),
                   Text('Editar'),
                 ],
               ),
-              onTap: onTap,
             ),
             PopupMenuItem(
-              child: Row(
+              onTap: onDelete,
+              child: const Row(
                 children: [
                   Icon(Icons.delete, size: 20, color: Colors.red),
                   SizedBox(width: 8),
                   Text('Deletar', style: TextStyle(color: Colors.red)),
                 ],
               ),
-              onTap: onDelete,
             ),
           ],
         ),
