@@ -5,6 +5,8 @@ import '../utils/constants.dart';
 class PedidoCard extends StatelessWidget {
   final Pedido pedido;
   final String? clienteNome;
+  final String? clienteEscola;
+  final bool mostrarPrazo;
   final VoidCallback? onTap;
   final VoidCallback? onDelete;
 
@@ -12,6 +14,8 @@ class PedidoCard extends StatelessWidget {
     Key? key,
     required this.pedido,
     this.clienteNome,
+    this.clienteEscola,
+    this.mostrarPrazo = true,
     this.onTap,
     this.onDelete,
   }) : super(key: key);
@@ -44,6 +48,11 @@ class PedidoCard extends StatelessWidget {
                       if (clienteNome != null)
                         Text(
                           clienteNome!,
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
+                      if (clienteEscola != null && clienteEscola!.isNotEmpty)
+                        Text(
+                          clienteEscola!,
                           style: Theme.of(context).textTheme.bodySmall,
                         ),
                     ],
@@ -85,22 +94,23 @@ class PedidoCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(
-                      'Prazo: ${AppConstants.formatarData(pedido.dataPrazo)}',
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
-                    Text(
-                      isAtrasado ? 'ATRASADO!' : 'Faltam $diasRestantes dias',
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            color: isAtrasado ? Colors.red : Colors.green,
-                            fontWeight: FontWeight.w600,
-                          ),
-                    ),
-                  ],
-                ),
+                if (mostrarPrazo)
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        'Prazo: ${AppConstants.formatarData(pedido.dataPrazo)}',
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                      Text(
+                        isAtrasado ? 'ATRASADO!' : 'Faltam $diasRestantes dias',
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              color: isAtrasado ? Colors.red : Colors.green,
+                              fontWeight: FontWeight.w600,
+                            ),
+                      ),
+                    ],
+                  ),
               ],
             ),
             const SizedBox(height: 12),

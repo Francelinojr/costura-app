@@ -18,6 +18,7 @@ class _NovoPedidoIntegradoScreenState extends State<NovoPedidoIntegradoScreen> {
   final _formKey = GlobalKey<FormState>();
   final _clienteNomeController = TextEditingController();
   final _telefoneController = TextEditingController();
+  final _escolaController = TextEditingController();
   final _descricaoController = TextEditingController();
   final _valorController = TextEditingController();
   final _observacoesController = TextEditingController();
@@ -40,6 +41,7 @@ class _NovoPedidoIntegradoScreenState extends State<NovoPedidoIntegradoScreen> {
   void dispose() {
     _clienteNomeController.dispose();
     _telefoneController.dispose();
+    _escolaController.dispose();
     _descricaoController.dispose();
     _valorController.dispose();
     _observacoesController.dispose();
@@ -84,6 +86,7 @@ class _NovoPedidoIntegradoScreenState extends State<NovoPedidoIntegradoScreen> {
       _novoCliente = true;
       _clienteSelecionado = null;
       _telefoneController.clear();
+      _escolaController.clear();
       // Limpar campos de medidas se houver
     });
   }
@@ -109,7 +112,7 @@ class _NovoPedidoIntegradoScreenState extends State<NovoPedidoIntegradoScreen> {
         nome: _clienteNomeController.text,
         telefone: _telefoneController.text,
         email: '', // Não solicitado no form, mas necessário no modelo
-        escola: '', // Não solicitado no form, mas necessário no modelo
+        escola: _escolaController.text,
         observacoes: '', // Não solicitado no form, mas necessário no modelo
         dataCadastro: DateTime.now(),
         busto: 0,
@@ -212,6 +215,14 @@ class _NovoPedidoIntegradoScreenState extends State<NovoPedidoIntegradoScreen> {
                     }
                     return null;
                   },
+                ),
+                const SizedBox(height: 16),
+                TextFormField(
+                  controller: _escolaController,
+                  decoration: const InputDecoration(
+                    labelText: 'Nome da Escola',
+                    border: OutlineInputBorder(),
+                  ),
                 ),
                 const SizedBox(height: 16),
               ],

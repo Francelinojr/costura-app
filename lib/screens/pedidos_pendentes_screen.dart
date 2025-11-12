@@ -101,6 +101,8 @@ class PedidosPendentesScreen extends StatelessWidget {
                 child: PedidoCard(
                   pedido: pedido,
                   clienteNome: cliente?.nome,
+                  clienteEscola: cliente?.escola,
+                  mostrarPrazo: false,
                   onTap: () {
                     Navigator.push(
                       context,
